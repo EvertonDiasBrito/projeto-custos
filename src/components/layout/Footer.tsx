@@ -9,7 +9,7 @@ function Footer() {
         <li><a href="https://instagram.com" target="_blank"><FaInstagram /></a></li>
         <li><a href="https://linkedin.com" target="_blank"><FaLinkedin /></a></li>
       </ul>
-      <p className={styles.copy_right}><span>Cost</span>&copy; 2026</p>
+      <p className={styles.copy_right}><span>Costs</span>&copy; 2026</p>
     </footer>
   );
 }
