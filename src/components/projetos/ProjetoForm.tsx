@@ -14,14 +14,15 @@ interface ProjetoFormProps {
     placeholder: string;
     handleOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     value: string;
-    handleSubmit: string;
-    projetosData: string;
+    handleSubmit: (projetos: { [key: string]: any }) => void;
+    projetosData: { [key: string]: any };
     category: string;
+    
 }
 
 function ProjetoForm({ handleSubmit, btnText, projetosData }: ProjetoFormProps) {
-    const [category, setCategory] = useState<{ id: number; name: string }[]>([]) //ver
-    const [projetos, setProjetos] = useState(projetosData || {})
+  const [category, setCategory] = useState<{ id: number; name: string }[]>([])
+  const [projetos, setProjetos] = useState<{ [key: string]: any }>(projetosData || {})
 
     useEffect(() => {
         fetch("http://localhost:5000/categories", {
@@ -38,10 +39,10 @@ function ProjetoForm({ handleSubmit, btnText, projetosData }: ProjetoFormProps) 
             .catch((err) => console.log(err))
     }, [])
 
-    const submit = (e) => {
-        e.preventDefault()
-        //console.log(projetos)
-        handleSubmit(projetos)
+    const submit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    handleSubmit(projetos)
+  }
     }
     function handleChange(e) {
         setProjetos({ ...projetos, [e.target.name]: e.target.value })
