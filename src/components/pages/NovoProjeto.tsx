@@ -1,12 +1,11 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from 'react-router-dom'
 import ProjetoForm from '../projetos/ProjetoForm'
 import styles from './NovoProjeto.module.css'
 
 function NovoProjeto() {
     
     const navigate = useNavigate()
-    function createPost (projetos) {
-
+    function createPost(projetos: { [key: string]: any }) {
         // iniciando os serviços 
         projetos.cost = 0
         projetos.service = []
@@ -22,7 +21,7 @@ function NovoProjeto() {
             .then((data) =>{
                 console.log(data)
                 //redicecionando
-                navigate('/categories', { state: { message: "Projeto enviado!" } })
+                navigate('/projetos', { state: { message: "Projeto criado com sucesso!" } })
             })
             .catch((err) => console.log(err))
     }

@@ -8,6 +8,7 @@ interface InputProps {
   value: string;
 }
 
+
 function Select({ text, name, options, handleOnChange, value }: InputProps) {
     return (
         <div className={styles.form_control}>
