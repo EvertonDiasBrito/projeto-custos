@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import Message from './Message'
 import styles from './Projetos.module.css'
 import Container from '../layout/Container'
+import Loading from '../layout/Loading'
 import LinkButton from '../layout/LinkButton'
 import ProjetosCard from '../projetos/ProjetosCard'
 
@@ -17,26 +18,29 @@ interface Projeto {
 
 function Projetos() {
   const [projetos, setProjetos] = useState<Projeto[]>([])
+  const [removeLoading, setRemoveLoading] = useState(false)
 
   const location = useLocation()
   const message = location.state?.message
 
   useEffect(() => {
+    setTimeout(() => {
 
-    fetch('http://localhost:5000/projects', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(resp => resp.json())
-      .then(data => {
-        console.log(data)
-        setProjetos(data)
+      fetch('http://localhost:5000/projects', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       })
-      .catch(err => console.log(err))
-
-  }, [])
+        .then(resp => resp.json())
+        .then(data => {
+          console.log(data)
+          setProjetos(data)
+          setRemoveLoading(true)
+        })
+        .catch(err => console.log(err))
+    }, 300);
+    }, [])
 
   return (
     <div className={styles.projetos_container}>
@@ -57,6 +61,8 @@ function Projetos() {
               handleRemove={() => console.log('Remover projeto')}
               
             />)}
+            {!removeLoading && <Loading />}
+            
       </Container>
     </div>
   );
