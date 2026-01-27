@@ -13,7 +13,7 @@ interface Projeto {
   id: number | string;
   name: string;
   budget: number;
-  category: string;
+  
 }
 
 function Projetos() {
@@ -62,6 +62,8 @@ function Projetos() {
               
             />)}
             {!removeLoading && <Loading />}
+            {removeLoading && projetos.length === 0 && (<p>Não há projetos cadastrados!</p>
+            )}
             
       </Container>
     </div>

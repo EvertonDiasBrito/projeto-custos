@@ -13,7 +13,7 @@ interface ProjetosCardProps {
   handleRemove: () => void;
 }
 
-function ProjetosCard({id, name, budget, category, handleRemove }: ProjetosCardProps) {
+function ProjetosCard({id, name, budget, category, }: ProjetosCardProps) {
   return (
     <div className={styles.project_card}>
       <h4>{name}</h4>
