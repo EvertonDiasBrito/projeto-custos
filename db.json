@@ -21,28 +21,6 @@
       },
       "cost": 0,
       "service": []
-    },
-    {
-      "id": "57c7",
-      "name": "teste 3",
-      "budget": "3000",
-      "category": {
-        "id": "3",
-        "name": "Design"
-      },
-      "cost": 0,
-      "service": []
-    },
-    {
-      "id": "bb25",
-      "name": "teste 4 ",
-      "budget": "4000",
-      "category": {
-        "id": "2",
-        "name": "Desenvolvimento"
-      },
-      "cost": 0,
-      "service": []
     }
   ],
   "categories": [

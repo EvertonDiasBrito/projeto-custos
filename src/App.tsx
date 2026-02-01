@@ -4,6 +4,7 @@ import Sobre from './components/pages/Sobre'
 import Contato from './components/pages/Contato'
 import NovoProjeto from './components/pages/NovoProjeto'
 import Projetos from './components/pages/Projetos'
+import Projeto from './components/pages/Projeto'
 
 import Container from './components/layout/Container'
 import NavBar from './components/layout/NavBar'
@@ -22,6 +23,7 @@ function App() {
           <Route path="/contato" element={<Contato />} />
           <Route path="/sobre" element={<Sobre />} />          
           <Route path="/novoprojeto" element={<NovoProjeto />} />
+          <Route path="/projetos/:id" element={<Projeto />} />
         </Routes>
       </Container>
       <Footer />
