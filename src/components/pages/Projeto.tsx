@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import Loading from '../layout/Loading';
 import Container from '../layout/Container';
 import ProjetoForm from '../projetos/ProjetoForm';
+import ServiceForm from '../servicos/ServiceForm';
 import Message from './Message';
 
 function Projeto() {
@@ -64,6 +65,10 @@ function Projeto() {
     .catch((err) => console.log(err));
     }
 
+    function creatService(projeto: any) {
+
+    }
+
     function toggleProjetoForm() {
         setShowProjetoForm(!showProjetoForm);
     } 
@@ -99,19 +104,27 @@ function Projeto() {
                                         handleSubmit={editPost}
                                         btnText='Concluir Edição'
                                         projetosData={projeto}
-                                    />
+                                    />  
                                 </div>
                             )}
                         </div>
-                        <div className={styles.servive_form_container}>
+                        <div className={styles.service_from_container}> 
                             <h2>Adicione um serviço</h2>
                             <button className={styles.btn} onClick={toggleServiceForm}>
-                                {!showServiceForm ? "Adicionar serviço" : "Fechar"}
+                                {!showServiceForm ? 'Adicionar serviço' : 'Fechar'}
                             </button>
-                            <div className={styles.projeto_info}>
-                                {showServiceForm && <div>Formulário para adicionar serviço</div>}
-                            </div>
+                                <div className={styles.projeto_info}>
+                                    {showServiceForm && <ServiceForm
+                                        HanddleSubmit={creatService}
+                                        btnText="Adicionar serviço"
+                                        projetoData={projeto}
+                                    />}
+                                </div>
                         </div>
+                        <h2>Serviços</h2>
+                        <Container customClass='start'>
+                            <p> itens do serviços </p>  
+                        </Container>
                     </Container>
                 </div>
             ) : (

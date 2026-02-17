@@ -7,7 +7,7 @@
 .projeto_detalhes p {
     margin-bottom: 0.5em;
 }
-.projeto_detalhes h1{
+.projeto_detalhes h1 {
     background-color: #222;
     color: #ffbb33;
     padding: 0.4em;
@@ -18,7 +18,7 @@
 }
 
 .detalhes_container,
-.service_from_comtainer {
+.service_from_container {
     border-bottom: 1px solid #7a7a7a;
     margin-bottom: 1.2em;
     padding-bottom: 1.2em;
