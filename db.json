@@ -21,6 +21,25 @@
       },
       "cost": 0,
       "service": []
+    },
+    {
+      "id": "8de9",
+      "name": "teste 7",
+      "budget": "7000",
+      "category": {
+        "id": "4",
+        "name": "Planejamento"
+      },
+      "cost": 1000,
+      "service": [],
+      "services": [
+        {
+          "name": "teste 1",
+          "cost": "1000",
+          "description": "servidor",
+          "id": "178d8470-9fa5-4ac2-91ae-9b5358b99a04"
+        }
+      ]
     }
   ],
   "categories": [

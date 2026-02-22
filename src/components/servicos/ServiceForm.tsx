@@ -1,29 +1,46 @@
 import {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Input from '../formularios/Input';
 import SubmitButton from '../formularios/SubmitButton';
 
 import styles from "../projetos/ProjetoForm.module.css";
 
+interface Service {
+    name?: string;
+    cost?: string;
+    description?: string;
+}
 
-function ServiceForm(HanddleSubmit, btnText, projetoData) {
-    const [formData, setFormData] = useState({
-        name: '',
-        cost: '',
-        description: ''
-    });
+interface ServiceFormProps {
+    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+    btnText: string;
+    projetosData: any;
+    name?: string;
+    cost?: number;
+    description?: string;
+}
 
-    function submit() {
 
+function ServiceForm({ handleSubmit, btnText, projetosData }: ServiceFormProps) {
+    const [servico, setServico] = useState<Service>({});
+    const navigate = useNavigate()
 
+    function submit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        if (!projetosData.services) {
+            projetosData.services = [];
+        }
+        projetosData.services.push(servico);
+        handleSubmit(projetosData);
+        navigate(`/projetos/${projetosData.id}`)
     }
 
-    function hanndeOnChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+        setServico({
+            ...servico,
+            [e.target.name]: e.target.value,
+        })
     }
 
     return (
@@ -33,8 +50,8 @@ function ServiceForm(HanddleSubmit, btnText, projetoData) {
                 text='Nome do serviço'
                 name="name" 
                 placeholder="Insira o nome do serviço"
-                value={formData.name}
-                handleOnChange={hanndeOnChange}
+                value={servico.name}
+                handleOnChange={handleChange}
             />
 
             <Input 
@@ -42,16 +59,16 @@ function ServiceForm(HanddleSubmit, btnText, projetoData) {
                 text='Custo do serviço'
                 name="cost" 
                 placeholder="Insira o custo valor total"
-                value={formData.cost}
-                handleOnChange={hanndeOnChange}
+                value={servico.cost}
+                handleOnChange={handleChange}
             />
             <Input 
                 type="text" 
                 text='descrição do serviço'
                 name="description" 
                 placeholder="Insira a descrição do serviço"
-                value={formData.description}
-                handleOnChange={hanndeOnChange}
+                value={servico.description}
+                handleOnChange={handleChange}
             />
             
             <SubmitButton text={btnText}/>
