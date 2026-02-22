@@ -8,8 +8,16 @@
         "id": "3",
         "name": "Design"
       },
-      "cost": 0,
-      "service": []
+      "cost": 500,
+      "service": [],
+      "services": [
+        {
+          "name": "teste 7",
+          "cost": "500",
+          "description": "kkkkkk",
+          "id": "254b2fb9-b409-4980-aab7-79340b83e0e4"
+        }
+      ]
     },
     {
       "id": "7e70",
@@ -30,7 +38,7 @@
         "id": "4",
         "name": "Planejamento"
       },
-      "cost": 1000,
+      "cost": 2000,
       "service": [],
       "services": [
         {
@@ -38,6 +46,12 @@
           "cost": "1000",
           "description": "servidor",
           "id": "178d8470-9fa5-4ac2-91ae-9b5358b99a04"
+        },
+        {
+          "name": "teste 2",
+          "cost": "1000",
+          "description": "teste",
+          "id": "6d68b344-a06b-4f29-8e84-3e3b239ba904"
         }
       ]
     }

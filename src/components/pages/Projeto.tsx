@@ -9,12 +9,15 @@ import Loading from '../layout/Loading';
 import Container from '../layout/Container';
 import ProjetoForm from '../projetos/ProjetoForm';
 import ServiceForm from '../servicos/ServiceForm';
+import ServiceCard from '../servicos/ServiceCard';
 import Message from './Message';
 
 function Projeto() {
     const { id } = useParams();
 
     const [projeto, setProjeto] = useState({} as any)
+
+    const [services, setServices] = useState({} as any)
 
     const[showProjetoForm, setShowProjetoForm] = useState(false);
 
@@ -36,6 +39,7 @@ function Projeto() {
         .then((resp) => resp.json())
         .then((data) => {
             setProjeto(data);
+            setServices(data.services);
         })
         .catch((err) => console.log(err));
         }, 300);
@@ -61,6 +65,7 @@ function Projeto() {
     .then((resp) => resp.json())
     .then((data) => {
         setProjeto(data);
+        
         setShowProjetoForm(false);
         setMessage('Projeto atualizado com sucesso!');
         setType('success');
@@ -68,51 +73,56 @@ function Projeto() {
     .catch((err) => console.log(err));
     }
 
-  function createService(projeto: any) {
-    setMessage('');
+    function createService(projeto: any) {
 
-    // 1. Garantir que o array de serviços existe
-    if (!projeto.services) {
-        projeto.services = [];
+        setMessage('');
+
+        // 1. Garantir que o array de serviços existe
+        if (!projeto.services) {
+            projeto.services = [];
+        }
+
+        // 2. Pegar o último serviço adicionado pelo formulário e gerar ID
+        const lastService = projeto.services[projeto.services.length - 1];
+        lastService.id = uuidv4();
+
+        const lastServiceCost = lastService.cost;
+        const newCost = parseFloat(projeto.cost || 0) + parseFloat(lastServiceCost);
+
+        // 3. Validação de orçamento
+        if (newCost > parseFloat(projeto.budget)) {
+            setMessage('Orçamento ultrapassado, verifique o valor do serviço!');
+            setType('error');
+            projeto.services.pop(); // Remove o serviço inválido
+            return false;
+        }
+
+        // 4. Atualizar o custo total do projeto
+        projeto.cost = newCost;
+
+        // 5. Atualizar o projeto no backend (PATCH)
+        fetch(`http://localhost:5000/projects/${projeto.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(projeto),
+        })
+        .then((resp) => resp.json())
+        .then((data) => {
+            setProjeto(data);
+            setShowServiceForm(false);
+            setMessage('Serviço adicionado com sucesso!');
+            setType('success');
+        })
+        .catch((err) => console.log(err));
     }
 
-    // 2. Pegar o último serviço adicionado pelo formulário e gerar ID
-    const lastService = projeto.services[projeto.services.length - 1];
-    lastService.id = uuidv4();
+    function removeService() {
 
-    const lastServiceCost = lastService.cost;
-    const newCost = parseFloat(projeto.cost || 0) + parseFloat(lastServiceCost);
-
-    // 3. Validação de orçamento
-    if (newCost > parseFloat(projeto.budget)) {
-        setMessage('Orçamento ultrapassado, verifique o valor do serviço!');
-        setType('error');
-        projeto.services.pop(); // Remove o serviço inválido
-        return false;
     }
 
-    // 4. Atualizar o custo total do projeto
-    projeto.cost = newCost;
-
-    // 5. Atualizar o projeto no backend (PATCH)
-    fetch(`http://localhost:5000/projects/${projeto.id}`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(projeto),
-    })
-    .then((resp) => resp.json())
-    .then((data) => {
-        setProjeto(data);
-        setShowServiceForm(false);
-        setMessage('Serviço adicionado com sucesso!');
-        setType('success');
-    })
-    .catch((err) => console.log(err));
-}
-
-
+    
     function toggleProjetoForm() {
         setShowProjetoForm(!showProjetoForm);
     } 
@@ -167,7 +177,20 @@ function Projeto() {
                         </div>
                         <h2>Serviços</h2>
                         <Container customClass='start'>
-                            <p> itens do serviços </p>  
+                            {services && services.length > 0 && 
+                                services.map((service: any) => (
+                                    <ServiceCard
+                                        key={service.id}
+                                        id={service.id}
+                                        name={service.name}
+                                        cost={service.cost}
+                                        description={service.description}
+                                        handleRemove={removeService}
+                                    />
+                                    
+                                ))
+                            }
+                            {(!services || services.length === 0) && <p>Não há serviços cadastrados.</p>} 
                         </Container>
                     </Container>
                 </div>

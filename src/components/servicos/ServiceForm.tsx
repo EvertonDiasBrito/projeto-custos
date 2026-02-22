@@ -6,12 +6,6 @@ import SubmitButton from '../formularios/SubmitButton';
 
 import styles from "../projetos/ProjetoForm.module.css";
 
-interface Service {
-    name?: string;
-    cost?: string;
-    description?: string;
-}
-
 interface ServiceFormProps {
     handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
     btnText: string;
@@ -21,9 +15,15 @@ interface ServiceFormProps {
     description?: string;
 }
 
+interface Servico {
+    name?: string;
+    cost?: number;
+    description?: string;
+}
+
 
 function ServiceForm({ handleSubmit, btnText, projetosData }: ServiceFormProps) {
-    const [servico, setServico] = useState<Service>({});
+    const [servico, setServico] = useState<Servico>({});
     const navigate = useNavigate()
 
     function submit(e: React.FormEvent<HTMLFormElement>) {
