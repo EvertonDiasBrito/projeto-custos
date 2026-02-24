@@ -38,20 +38,14 @@
         "id": "4",
         "name": "Planejamento"
       },
-      "cost": 2000,
+      "cost": 1000,
       "service": [],
       "services": [
         {
           "name": "teste 1",
           "cost": "1000",
-          "description": "servidor",
-          "id": "178d8470-9fa5-4ac2-91ae-9b5358b99a04"
-        },
-        {
-          "name": "teste 2",
-          "cost": "1000",
           "description": "teste",
-          "id": "6d68b344-a06b-4f29-8e84-3e3b239ba904"
+          "id": "1c78b6c5-cd9a-4b76-89a4-0813631385db"
         }
       ]
     }
